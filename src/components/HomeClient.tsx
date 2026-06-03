@@ -2,11 +2,14 @@
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from "motion/react"
 import { MessageCircle } from 'lucide-react'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const Homeclient = ({ email }: { email: string }) => {
     const handleLogin = () => {
         window.location.href = "/api/auth/login"
     }
+
 
     const [open, setOpen] = useState(false)
 
@@ -24,6 +27,18 @@ const Homeclient = ({ email }: { email: string }) => {
             desc: "Your customers get instant support 24/7."
         }
     ];
+
+    const handleLogout = async () => {
+        try {
+            const result = await axios.get("/api/auth/logout")
+              window.location.href = "/"
+            setOpen(false)
+            toast.success("Logged out successfully");
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
 
     return (
         <div className='min-h-screen bg-linear-to-br from-white to-zinc-50 text-zinc-900 overflow-x-hidden'>
@@ -71,7 +86,9 @@ const Homeclient = ({ email }: { email: string }) => {
                                     </button>
 
                                     {/* Logout */}
-                                    <button className="w-full px-4 py-3 text-left text-sm text-red-600 transition-all hover:bg-red-50 hover:pl-5">
+                                    <button
+                                    onClick={handleLogout}
+                                    className="w-full px-4 py-3 text-left text-sm text-red-600 transition-all hover:bg-red-50 hover:pl-5">
                                         Logout
                                     </button>
                                 </motion.div>
@@ -193,61 +210,61 @@ const Homeclient = ({ email }: { email: string }) => {
 
             {/* footer */}
             <footer className="border-t border-zinc-200 bg-white">
-  <div className="max-w-6xl mx-auto px-6 py-12">
-    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-      
-      {/* Brand */}
-      <div>
-        <h3 className="text-xl font-semibold">
-          Support<span className="text-zinc-400">AI</span>
-        </h3>
-        <p className="mt-2 text-sm text-zinc-500 max-w-sm">
-          AI-powered customer support for modern businesses.
-          Deliver instant answers and improve customer experience.
-        </p>
-      </div>
+                <div className="max-w-6xl mx-auto px-6 py-12">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
 
-      {/* Links */}
-      <div className="flex items-center gap-8 text-sm text-zinc-600">
-        <a
-          href="#feature"
-          className="hover:text-black transition-colors"
-        >
-          Features
-        </a>
-        <a
-          href="/dashboard"
-          className="hover:text-black transition-colors"
-        >
-          Dashboard
-        </a>
-        <a
-          href="#"
-          className="hover:text-black transition-colors"
-        >
-          Privacy
-        </a>
-        <a
-          href="#"
-          className="hover:text-black transition-colors"
-        >
-          Contact
-        </a>
-      </div>
-    </div>
+                        {/* Brand */}
+                        <div>
+                            <h3 className="text-xl font-semibold">
+                                Support<span className="text-zinc-400">AI</span>
+                            </h3>
+                            <p className="mt-2 text-sm text-zinc-500 max-w-sm">
+                                AI-powered customer support for modern businesses.
+                                Deliver instant answers and improve customer experience.
+                            </p>
+                        </div>
 
-    {/* Bottom */}
-    <div className="mt-10 pt-6 border-t border-zinc-100 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p className="text-sm text-zinc-500">
-        © {new Date().getFullYear()} SupportAI. All rights reserved.
-      </p>
+                        {/* Links */}
+                        <div className="flex items-center gap-8 text-sm text-zinc-600">
+                            <a
+                                href="#feature"
+                                className="hover:text-black transition-colors"
+                            >
+                                Features
+                            </a>
+                            <a
+                                href="/dashboard"
+                                className="hover:text-black transition-colors"
+                            >
+                                Dashboard
+                            </a>
+                            <a
+                                href="#"
+                                className="hover:text-black transition-colors"
+                            >
+                                Privacy
+                            </a>
+                            <a
+                                href="#"
+                                className="hover:text-black transition-colors"
+                            >
+                                Contact
+                            </a>
+                        </div>
+                    </div>
 
-      <p className="text-sm text-zinc-400">
-        Built with AI for better customer support.
-      </p>
-    </div>
-  </div>
-</footer>
+                    {/* Bottom */}
+                    <div className="mt-10 pt-6 border-t border-zinc-100 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <p className="text-sm text-zinc-500">
+                            © {new Date().getFullYear()} SupportAI. All rights reserved.
+                        </p>
+
+                        <p className="text-sm text-zinc-400">
+                            Built with AI for better customer support.
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </div>
     )
 }
