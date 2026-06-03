@@ -10,6 +10,20 @@ const Homeclient = ({ email }: { email: string }) => {
 
     const [open, setOpen] = useState(false)
 
+    const features = [
+        {
+            title: "Plug & Play",
+            desc: "Add the chatbot to your site with a single script tag."
+        },
+        {
+            title: "Admin Controlled",
+            desc: "You control exactly what the AI knows and answers."
+        },
+        {
+            title: "Always Online",
+            desc: "Your customers get instant support 24/7."
+        }
+    ];
 
     return (
         <div className='min-h-screen bg-linear-to-br from-white to-zinc-50 text-zinc-900 overflow-x-hidden'>
@@ -105,9 +119,11 @@ const Homeclient = ({ email }: { email: string }) => {
                                 Get Started
                             </button>}
 
-                            <button className='px-7 py-3 rounded-xl border border-zinc-300 text-zinc-700 hover:bg-zinc-100 transition'>
+                            <a
+                                href='#feature'
+                                className='px-7 py-3 rounded-xl border border-zinc-300 text-zinc-700 hover:bg-zinc-100 transition'>
                                 Learn More
-                            </button>
+                            </a>
                         </div>
                     </motion.div>
 
@@ -129,12 +145,12 @@ const Homeclient = ({ email }: { email: string }) => {
                                     Yes,Cash on Delivery is avaliable
                                 </div>
                             </div>
-                            <motion.div 
-                            animate={{y:[0,-12,0]}}
-                            transition={{repeat:Infinity,duration:3}}
-                            className='absolute -bottom-6 -right-6 w-14 h-14 rounded-full bg-black text-white flex items-center justify-center shadow-xl'
+                            <motion.div
+                                animate={{ y: [0, -12, 0] }}
+                                transition={{ repeat: Infinity, duration: 3 }}
+                                className='absolute -bottom-6 -right-6 w-14 h-14 rounded-full bg-black text-white flex items-center justify-center shadow-xl'
                             >
-                                <MessageCircle size={22}/>
+                                <MessageCircle size={22} />
                             </motion.div>
                         </div>
 
@@ -143,6 +159,95 @@ const Homeclient = ({ email }: { email: string }) => {
 
             </section>
 
+            <section
+                id='feature'
+                className='bg-zinc-50 py-28 px-6 border-t border-zinc-200'
+            >
+                <div className='max-w-6xl mx-auto'>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.5 }}
+                        className='text-3xl font-semibold text-center'
+                    >
+                        Why Businesses Choose SupportAI
+                    </motion.h2>
+                    <div className='mt-16 grid grid-cols-1 md:grid-cols-3 gap-10'>
+                        {features.map((f, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                                className='bg-white rounded-2xl p-8 shadow-lg border border-zinc-200'
+                            >
+                                <h1 className='text-lg font-medium'>{f.title}</h1>
+                                <p className='mt-3 text-zinc-600 text-sm'>{f.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* footer */}
+            <footer className="border-t border-zinc-200 bg-white">
+  <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+      
+      {/* Brand */}
+      <div>
+        <h3 className="text-xl font-semibold">
+          Support<span className="text-zinc-400">AI</span>
+        </h3>
+        <p className="mt-2 text-sm text-zinc-500 max-w-sm">
+          AI-powered customer support for modern businesses.
+          Deliver instant answers and improve customer experience.
+        </p>
+      </div>
+
+      {/* Links */}
+      <div className="flex items-center gap-8 text-sm text-zinc-600">
+        <a
+          href="#feature"
+          className="hover:text-black transition-colors"
+        >
+          Features
+        </a>
+        <a
+          href="/dashboard"
+          className="hover:text-black transition-colors"
+        >
+          Dashboard
+        </a>
+        <a
+          href="#"
+          className="hover:text-black transition-colors"
+        >
+          Privacy
+        </a>
+        <a
+          href="#"
+          className="hover:text-black transition-colors"
+        >
+          Contact
+        </a>
+      </div>
+    </div>
+
+    {/* Bottom */}
+    <div className="mt-10 pt-6 border-t border-zinc-100 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p className="text-sm text-zinc-500">
+        © {new Date().getFullYear()} SupportAI. All rights reserved.
+      </p>
+
+      <p className="text-sm text-zinc-400">
+        Built with AI for better customer support.
+      </p>
+    </div>
+  </div>
+</footer>
         </div>
     )
 }
