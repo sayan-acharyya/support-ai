@@ -4,8 +4,12 @@ import { AnimatePresence, motion } from "motion/react"
 import { MessageCircle } from 'lucide-react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const Homeclient = ({ email }: { email: string }) => {
+
+    const router = useRouter();
+
     const handleLogin = () => {
         window.location.href = "/api/auth/login"
     }
@@ -31,7 +35,7 @@ const Homeclient = ({ email }: { email: string }) => {
     const handleLogout = async () => {
         try {
             const result = await axios.get("/api/auth/logout")
-              window.location.href = "/"
+            window.location.href = "/"
             setOpen(false)
             toast.success("Logged out successfully");
         } catch (error) {
@@ -81,14 +85,16 @@ const Homeclient = ({ email }: { email: string }) => {
                                     </div>
 
                                     {/* Dashboard */}
-                                    <button className="w-full px-4 py-3 text-left text-sm text-zinc-700 transition-all hover:bg-zinc-50 hover:pl-5">
+                                    <button
+                                        onClick={() => router.push("/dashboard")}
+                                        className="w-full px-4 py-3 text-left text-sm text-zinc-700 transition-all hover:bg-zinc-50 hover:pl-5">
                                         Dashboard
                                     </button>
 
                                     {/* Logout */}
                                     <button
-                                    onClick={handleLogout}
-                                    className="w-full px-4 py-3 text-left text-sm text-red-600 transition-all hover:bg-red-50 hover:pl-5">
+                                        onClick={handleLogout}
+                                        className="w-full px-4 py-3 text-left text-sm text-red-600 transition-all hover:bg-red-50 hover:pl-5">
                                         Logout
                                     </button>
                                 </motion.div>
@@ -126,6 +132,7 @@ const Homeclient = ({ email }: { email: string }) => {
                         </p>
                         <div className='mt-10 flex gap-4'>
                             {email ? <button
+                                onClick={() => router.push("/dashboard")}
                                 className='px-7 py-3 rounded-xl bg-black text-white font-medium
                              hover:bg-zinc-800 transition disabled:opacity-60'>
                                 Go to Dashboard
