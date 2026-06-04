@@ -58,8 +58,7 @@ ANSWER
         });
 
         return NextResponse.json(response.text)
-
-
+        
     } catch (error) {
         return NextResponse.json(
             { message: `chat error ${error}` },
