@@ -155,5 +155,77 @@
         }
     });
 
+    const input = document.querySelector("#chat-input")
+    const sendBtn = document.querySelector("#chat-send")
+    const messageArea = document.querySelector("#chat-messages")
+
+    function addMessage(text, from) {
+        const bubble = document.createElement("div")
+        bubble.innerHTML = text
+        Object.assign(bubble.style, {
+            maxWidth: "78%",
+            padding: "8px 12px",
+            borderRadius: "14px",
+            fontSize: "13px",
+            lineHeight: "1.4",
+            marginBottom: "8px",
+            alignSelf: from === "user" ? "flex-end" : "flex-start",
+            background: from === "user" ? "#000" : "#e5e7eb",
+            color: from === "user" ? "#fff" : "#111",
+
+            /* Bubble direction polish */
+            borderTopRightRadius: from === "user" ? "4px" : "14px",
+            borderTopLeftRadius: from === "user" ? "14px" : "4px",
+        })
+
+        messageArea.appendChild(bubble);
+        messageArea.scrollTop = messageArea.scrollHeight
+    }
+
+     sendBtn.onclick = async () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    // typing indicator
+    const typing = document.createElement("div");
+    typing.innerHTML = "Typing...";
+    Object.assign(typing.style, {
+        fontSize: "12px",
+        color: "#6b7280",
+        marginBottom: "8px",
+        alignSelf: "flex-start"
+    });
+
+    messageArea.appendChild(typing);
+    messageArea.scrollTop = messageArea.scrollHeight;
+
+    try {
+        // simulate API call delay (replace with real fetch)
+        const res = await fetch(api_Url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: text,
+                ownerId
+            })
+        });
+
+        const data = await res.json();
+
+        // remove typing BEFORE showing response
+        typing.remove();
+        addMessage(data.reply || "semething went wrong", "bot");
+
+    } catch (err) {
+        typing.remove();
+        addMessage("Error getting response", "bot");
+        console.error(err);
+    }
+};
+
+
+
 })();
-//4:15:45

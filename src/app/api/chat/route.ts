@@ -52,17 +52,31 @@ ANSWER
 `;
 
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-        const response = await ai.models.generateContent({
+        const res = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: prompt,
         });
 
-        return NextResponse.json(response.text)
-        
+        const response = NextResponse.json(res.text);
+
+        response.headers.set("Access-Control-Allow-Origin", "*");
+        response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+        response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+        return response;
+
     } catch (error) {
-        return NextResponse.json(
+        const response = NextResponse.json(
             { message: `chat error ${error}` },
             { status: 500 }
         )
+
+        response.headers.set("Access-Control-Allow-Origin", "*");
+        response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+        response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+        return response;
+
     }
 }
+//4:35:24
