@@ -77,6 +77,7 @@ const DashboardClient = ({ ownerId }: { ownerId: string }) => {
                         Support<span className='text-zinc-400 ml-0.5'>AI</span>
                     </div>
                     <button
+                    onClick={()=>router.push("/embed")}
                         className='px-4 py-2 rounded-lg border border-zinc-300 text-sm hover:bg-zinc-100 transition'>
                         Embed ChatBot
                     </button>
