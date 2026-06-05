@@ -57,7 +57,9 @@ ANSWER
             contents: prompt,
         });
 
-        const response = NextResponse.json(res.text);
+        const response = NextResponse.json({
+            reply: res.text
+        });
 
         response.headers.set("Access-Control-Allow-Origin", "*");
         response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -79,4 +81,14 @@ ANSWER
 
     }
 }
-//4:35:24
+
+export const OPTIONS = async () => {
+    return NextResponse.json(null, {
+        status: 201,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+        },
+    });
+};
